@@ -1,0 +1,111 @@
+  ---
+title: "Mining NGO text reports "
+author: "Deepa"
+date: "13 February 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Data import 
+
+The NGO text reports are in the pdf form and are imported into the R environment. 
+The text from each page are scraped and ready for further text processing 
+
+```{r message=FALSE}
+library(pdftools)
+library(tidyverse)
+library(quanteda)
+library(tm)
+library(wordcloud)
+library(Rstem)
+text <- pdf_text("C:/Users/Janani Selvaraj/Desktop/BCA Projects/AR 2015.pdf")
+
+  
+```
+
+## Text pre processing 
+
+
+
+```{r message=FALSE,warning=FALSE}
+corpus <- Corpus(VectorSource(text))
+corpus <- tm_map(corpus, content_transformer(tolower))
+corpus <- tm_map(corpus, removePunctuation)
+corpus <- tm_map(corpus, removeWords, stopwords("english"))
+corpus <- tm_map(corpus, content_transformer(removeNumbers))
+tdm <- TermDocumentMatrix(corpus)
+m <- as.matrix(tdm)
+d <- data.frame(freq = sort(rowSums(m), decreasing = TRUE))
+```
+
+```{r message=FALSE, warning=FALSE}
+d$stem <- wordStem(row.names(d), language = "english")
+d$word <- row.names(d)
+d <- d[nchar(row.names(d)) < 20, ]
+agg_freq <- aggregate(freq ~ stem, data = d, sum)
+agg_word <- aggregate(word ~ stem, data = d, function(x) x[1])
+d <- cbind(freq = agg_freq[, 2], agg_word)
+d <- d[order(d$freq, decreasing = T), ]
+wordcloud(d$word, d$freq)
+```
+
+```{r message=FALSE,warning=FALSE}
+library(tidytext)
+library(dplyr)
+library(topicmodels)
+library(ggplot2)
+terms <- Terms(tdm)
+td <- tidy(tdm)
+sentiments <- td %>%
+  inner_join(get_sentiments("bing"), by = c(term = "word"))
+sentiments %>%
+  count(sentiment, term, wt = count) %>%
+  ungroup() %>%
+  filter(n >= 2) %>%
+  mutate(n = ifelse(sentiment == "negative", -n, n)) %>%
+  mutate(term = reorder(term, n)) %>%
+  ggplot(aes(term, n, fill = sentiment)) +
+  geom_bar(stat = "identity") +
+  ylab("Contribution to sentiment") +
+  coord_flip()
+
+
+```
+
+```{r}
+library(stringi)
+library(proxy)
+dtm<-DocumentTermMatrix(corpus)
+    tdm.tfidf <- tm::weightTfIdf(tdm)
+    tdm.tfidf <- tm::removeSparseTerms(tdm.tfidf, 0.999) 
+    tfidf.matrix <- as.matrix(tdm.tfidf)
+    dist.matrix = proxy::dist(tfidf.matrix, method = "cosine") 
+    truth.K<-16
+    clustering.kmeans <- kmeans(tfidf.matrix, truth.K) 
+    clustering.hierarchical <- hclust(dist.matrix, method = "ward.D2") 
+    clustering.dbscan <- dbscan::hdbscan(dist.matrix, minPts = 10) 
+    points <- cmdscale(dist.matrix, k = 2) 
+    palette <- colorspace::diverge_hcl(truth.K) # Creating a color palette 
+    previous.par <- par(mfrow=c(2,2), mar = rep(1.5, 4)) 
+    master.cluster <- clustering.kmeans$cluster 
+    slave.hierarchical <- cutree(clustering.hierarchical, k = truth.K) 
+    slave.dbscan <- clustering.dbscan$cluster 
+    stacked.clustering <- rep(NA, length(master.cluster))  
+    names(stacked.clustering) <- 1:length(master.cluster)
+    
+    plot(points, main = 'K-Means clustering', col = as.factor(master.cluster), 
+         mai = c(0, 0, 0, 0), mar = c(0, 0, 0, 0), 
+         xaxt = 'n', yaxt = 'n', xlab = '', ylab = '') 
+    
+    plot(points, main = 'Hierarchical clustering', col = as.factor(slave.hierarchical), 
+         mai = c(0, 0, 0, 0), mar = c(0, 0, 0, 0),  
+         xaxt = 'n', yaxt = 'n', xlab = '', ylab = '') 
+    
+    plot(points, main = 'Density-based clustering', col = as.factor(slave.dbscan), 
+         mai = c(0, 0, 0, 0), mar = c(0, 0, 0, 0), 
+         xaxt = 'n', yaxt = 'n', xlab = '', ylab = '')
+```
+
