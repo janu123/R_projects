@@ -1,0 +1,17 @@
+,unitid,institution.name,year,HD2013.City.location.of.institution,HD2013.ZIP.code,HD2013.Longitude.location.of.institution,HD2013.Latitude.location.of.institution,IC2013.Applicants.total,IC2013.Number.of.first.time.degree.certificate.seeking.students.submitting.SAT.scores,IC2013.Percent.of.first.time.degree.certificate.seeking.students.submitting.ACT.scores,DRVIC2013.Percent.admitted...total,DRVIC2013.Percent.admitted...men,DRVIC2013.Percent.admitted...women,DRVIC2013.Admissions.yield...full.time,DRVIC2013.Tuition.and.fees..2013.14,HD2013.State.abbreviation,DRVEF122013.12.month.full.time.equivalent.enrollment..2012.13,state.x,city.x,zipcode,rank,centile,superzip,adultpop,college,income,longitude,latitude
+1,100654,Bishop Heber College,1966,srinivasa nagar,35762,78.686638,10.81796,6142,167,88,90,87,91,20,7182,Alabama,4524,AL,Normal,100654,20,7182,0,4524,90,6142,78.686638,10.81796
+2,100663,Jamal Mohamed College,1951,kajanagar,352940110,78.693916,10.77782,5689,103,93,87,88,86,35,7206,Alabama,16253,AL,Birmingham,100663,35,7206,0,16253,87,5689,78.693916,10.77782
+3,100690,"National College, Trichy",1919,dindugal road,361173553,78.674049,10.79105,NA,NA,NA,NA,NA,NA,NA,6870,Alabama,579,AL,Montgomery,100690,NA,6870,NA,579,80,NA,78.674049,10.79105
+4,100706,Periyar E.V.R. College,1965,kajamalai,35899,78.69242,10.75501,2054,118,94,81,82,78,39,9192,Alabama,6080,AL,Huntsville,100706,39,9192,0,6080,81,2054,78.69242,10.75501
+5,100724,St. Joseph's College,1844,theppakulam,361040271,78.68476,10.82234,10245,269,87,51,48,53,27,8720,Alabama,5571,AL,Montgomery,100724,27,8720,0,5571,51,10245,78.68476,10.82234
+6,100751,Nehru Memorial College,1956,puthanampati,354870166,78.6835,11.0647,30975,1469,76,57,56,57,37,9450,Alabama,31723,AL,Tuscaloosa,100751,37,9450,0,31723,57,30975,78.6835,11.0647
+7,100812,Srimad Andavan Arts and Science College,1943,srirangam,35611,78.6978,10.859,NA,NA,NA,NA,NA,NA,NA,NA,Alabama,2771,AL,Athens,100812,NA,NA,NA,2771,55,NA,78.6978,10.859
+8,100830,Holy Cross College,1923,theppakulam,361173596,78.6925,10.8249,1958,0,54,84,86,83,32,8750,Alabama,4092,AL,Montgomery,100830,32,8750,0,4092,84,1958,78.6925,10.8249
+9,100858,Aiman College of Arts & Science For Women,1943,sathanur,36849,78.6856,10.7491,15745,617,83,83,83,83,28,9852,Alabama,23815,AL,Auburn University,100858,28,9852,0,23815,83,15745,78.6856,10.7491
+10,100937,Cauvery College for Women,,annamalainagar,35254,78.7047,10.7905,1931,113,82,64,68,61,29,30690,Alabama,1331,AL,Birmingham,100937,29,30690,0,1331,64,1931,78.7047,10.7905
+11,101073,Urumu Dhanalakshmi College,1946,pappakuruchi,36701,78.7412,10.8027,NA,NA,NA,NA,NA,NA,NA,8090,Alabama,515,AL,Selma,101073,NA,8090,NA,515,44,NA,78.7412,10.8027
+12,101189,Government Arts College,1973,thuvakudi,361093378,79.1275,10.7705,NA,NA,NA,NA,NA,NA,NA,18230,Alabama,3279,AL,Montgomery,101189,NA,18230,NA,3279,45,NA,79.1275,10.7705
+13,101435,Seethalakshmi Ramaswami College,1951,townhall,361062148,78.698,10.8327,1470,43,93,63,61,65,28,23500,Alabama,1078,AL,Montgomery,101435,28,23500,0,1078,63,1470,78.698,10.8327
+14,101453,Shrimati Indira Gandhi College,1984,townhall,356309977,78.6933,10.83,NA,NA,NA,NA,NA,NA,NA,9792,Alabama,53,AL,Florence,101453,NA,9792,NA,53,70,NA,78.6933,10.83
+15,101480,M.I.E.T Arts & Science College,1993,gundur,36265,78.7125,10.7304,3083,203,89,83,83,83,44,7092,Alabama,7566,AL,Jacksonville,101480,44,7092,0,7566,83,3083,78.7125,10.7304
+16,101541,Christhuraj College,1998,panjapur,36756,78.6421,10.7453,268,7,94,74,NA,74,34,15630,Alabama,343,AL,Marion,101541,34,15630,0,343,74,268,78.6421,10.7453
