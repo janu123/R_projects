@@ -1,0 +1,73 @@
+---
+title: "Mini Project"
+author: "Lavanya"
+date: "1 October 2018"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Visuslization of the prevalence of common diseases in Trichy
+```{r message=FALSE, warning=FALSE}
+library(plotly)
+library(dplyr)
+library(readxl)
+disease<-read_excel("C:/Users/Janani Selvaraj/Downloads/Diseasse modeling new (1).xlsx")
+top<-disease %>% group_by(Disease) %>% summarise(total=sum(Count))%>% top_n(10)
+ggplot(top,aes(reorder(Disease, -total),total))+geom_bar(aes(fill=Disease),stat="identity")+theme(axis.text.x = element_text(angle = 90, hjust = 1)) +xlab("Disease")
+```
+
+
+```{r message=FALSE,warning=FALSE}
+disease[disease$Disease %in% c("Fever","ADD","PUO","Dengue","Other Viral Fever","Scrub Typhus","Leptospirosis","Dog-Bite","Cholera","Chickun Guinea"),]<-NA
+disease1<-na.omit(disease)
+disease1[disease1$Count<=5,]<-NA
+key<-crosstalk::SharedData$new(disease1,~Disease)
+p <- plot_ly(disease1, y = ~Disease, color = ~Disease, 
+              boxpoints = "suspectedoutliers")
+p1 <- p %>% add_boxplot(x = ~Count) %>%
+add_boxplot(data = key, frame = ~Year, ids = ~Disease)
+p1
+
+```
+
+```{r message=FALSE, warning=FALSE}
+library(tidyr)
+library(dplyr)
+disease<-read_excel("C:/Users/Janani Selvaraj/Downloads/Diseasse modeling new (1).xlsx")
+disease[disease$Disease %in% c("Fever","ADD","PUO","Dengue","Other Viral Fever","Scrub Typhus","Leptospirosis","Dog-Bite","Cholera","Chickun Guinea"),]<-NA
+disease1<-na.omit(disease)
+disease1$Month <- factor(disease1$Month)
+levels(disease1$Month) <- month.abb
+zp <- ggplot(disease1,
+              aes(x = Year, y = Count))
+zp <- zp + geom_bar(aes(fill=Disease),stat = "identity")  # Drawing the "overlayer"
+zp <- zp + facet_wrap(~ Month)
+zp <- zp + theme_bw()
+zp
+
+```
+
+```{r message=FALSE, warning=FALSE}
+disease<-read_excel("C:/Users/Janani Selvaraj/Downloads/Diseasse modeling new (1).xlsx")
+top<-disease %>% group_by(Year,Disease) %>% summarise(total=sum(Count)) %>% select(Year,total)
+top[top$total==0,]<-NA
+top<-na.omit(top)
+plot_ly(top,x=~Year,y=~total) %>% add_markers()
+res <- cor.test(top$Year, top$total, 
+                    method = "pearson")
+res
+```
+
+Poisson regression with disease counts
+```{r message=FALSE, warning=FALSE}
+disease<-read_excel("C:/Users/Janani Selvaraj/Downloads/Diseasse modeling new (1).xlsx")
+model<-glm(Count~Year,data=disease,family = poisson)
+summary(model)
+```
+
+The positive coefficient 0.087 indicates that as the year increases the mean number of diseases increases.
